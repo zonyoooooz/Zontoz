@@ -1,0 +1,69 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local localPlayer = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+
+-- ESP Labels folder
+local espFolder = Instance.new("Folder", game.CoreGui)
+espFolder.Name = "ESP_Labels"
+
+local espEnabled = false
+local connections = {}
+local function createESP(player)
+	if player == localPlayer then return end
+	if espFolder:FindFirstChild(player.Name) then return end
+
+	local billboard = Instance.new("BillboardGui")
+	billboard.Name = player.Name
+	billboard.Adornee = nil
+	billboard.Size = UDim2.new(0, 100, 0, 40)
+	billboard.StudsOffset = Vector3.new(0, 3, 0)
+	billboard.AlwaysOnTop = true
+	billboard.Parent = espFolder
+
+	local label = Instance.new("TextLabel")
+	label.Size = UDim2.new(1, 0, 1, 0)
+	label.BackgroundTransparency = 1
+	label.TextStrokeTransparency = 0.5
+	label.Font = Enum.Font.SourceSansBold
+	label.TextSize = 14
+	label.Text = player.Name
+	label.Parent = billboard
+	local conn = RunService.RenderStepped:Connect(function()
+		if player.Character and player.Character:FindFirstChild("Head") then
+			billboard.Adornee = player.Character.Head
+			billboard.Enabled = espEnabled
+			if player.Team == localPlayer.Team then
+				label.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر
+			else
+				label.TextColor3 = Color3.fromRGB(255, 0, 0) -- أحمر
+			end
+		else
+			billboard.Enabled = false
+		end
+	end)
+
+	table.insert(connections, conn)
+end
+for _, player in ipairs(Players:GetPlayers()) do
+	createESP(player)
+end
+Players.PlayerAdded:Connect(function(player)
+	createESP(player)
+end)
+local screenGui = Instance.new("ScreenGui", localPlayer:WaitForChild("PlayerGui"))
+screenGui.Name = "ESP_Control"
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 120, 0, 40)
+button.Position = UDim2.new(0, 20, 0, 20)
+button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+button.TextColor3 = Color3.new(1, 1, 1)
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 18
+button.Text = "ESP: OFF"
+button.Parent = screenGui
+button.MouseButton1Click:Connect(function()
+	espEnabled = not espEnabled
+	button.Text = espEnabled and "ESP: ON" or "ESP: OFF"
+end)
