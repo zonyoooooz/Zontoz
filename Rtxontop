@@ -1,0 +1,56 @@
+
+‏local player = game.Players.LocalPlayer
+‏local mouse = player:GetMouse()
+‏local char = player.Character or player.CharacterAdded:Wait()
+‏local hrp = char:WaitForChild("HumanoidRootPart")
+‏local gui = player:WaitForChild("rtxontop"):WaitForChild("ScreenGui") 
+‏local frame = gui:WaitForChild("FlyMenu")
+‏local toggleBtn = frame:WaitForChild("ToggleFlyButton")
+‏local speedBox = frame:WaitForChild("SpeedBox")
+‏local flying = false
+‏local speed = 50
+‏local bodyGyro
+‏local bodyVelocity
+
+‏function startFlying()
+‏	if flying then return end
+‏	bodyGyro = Instance.new("BodyGyro")
+‏	bodyGyro.P = 9e4
+‏	bodyGyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+‏	bodyGyro.cframe = hrp.CFrame
+‏	bodyGyro.Parent = hrp
+
+‏	bodyVelocity = Instance.new("BodyVelocity")
+‏	bodyVelocity.velocity = Vector3.new(0,0,0)
+‏	bodyVelocity.maxForce = Vector3.new(9e9, 9e9, 9e9)
+‏	bodyVelocity.Parent = hrp
+
+‏	flying = true
+
+‏	while flying do
+‏		game:GetService("RunService").RenderStepped:Wait()
+‏		bodyGyro.CFrame = workspace.CurrentCamera.CFrame
+‏		bodyVelocity.Velocity = workspace.CurrentCamera.CFrame.lookVector * speed
+‏	end
+‏end
+
+‏function stopFlying()
+‏	flying = false
+‏	if bodyGyro then bodyGyro:Destroy() end
+‏	if bodyVelocity then bodyVelocity:Destroy() end
+‏end
+‏toggleBtn.MouseButton1Click:Connect(function()
+‏	if flying then
+‏		stopFlying()
+‏		toggleBtn.Text = "تشغيل الطيران"
+‏	else
+‏		startFlying()
+‏		toggleBtn.Text = "إيقاف الطيران"
+‏	end
+‏end)
+‏speedBox.FocusLost:Connect(function()
+‏	local newSpeed = tonumber(speedBox.Text)
+‏	if newSpeed then
+‏		speed = newSpeed
+‏	end
+‏end)
