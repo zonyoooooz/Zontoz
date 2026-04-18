@@ -1,62 +1,1106 @@
-local Window = Fluent:CreateWindow({
-    Title = "TPS: Street Soccer 🏆",
-    SubTitle = "By zon",
-    TabWidth = 160,
-    Size = UDim2.fromOffset(580, 460),
-    Acrylic = false,
-    Theme = "Dark",
-    MinimizeKey = Enum.KeyCode.LeftControl
-})
+local genv = getgenv()
+local _ = game.Players.LocalPlayer.Character.HumanoidRootPart
 
-local Tabs = {
-    Reach = Window:AddTab({ Title = "Reach", Icon = "mouse-pointer" }),
-    FlagFunc = Window:AddTab({ Title = "Flag Func", Icon = "code" })
-}
+game:GetService('Players')
 
-local ReachConfig = { Enabled = false, Size = 4 }
+local _11 = loadstring(game:HttpGet('https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt'))()
+local _call17 = _11:Window('TPS Neverlose'):Server('Main', ''):Channel('Features')
 
-Tabs.Reach:AddToggle("ReachToggle", {
-    Title = "Enable Reach",
-    Default = false,
-    Callback = function(Value) ReachConfig.Enabled = Value end
-})
-
-Tabs.Reach:AddSlider("ReachSlider", {
-    Title = "Reach Size",
-    Min = 1, Max = 50, Default = 4,
-    Rounding = 1,
-    Callback = function(Value) ReachConfig.Size = Value end
-})
-
-local FlagData = { Delay = "4" }
-
-Tabs.FlagFunc:AddInput("TargetDelay", {
-    Title = "TargetTimeDelay",
-    Default = "4",
-    Callback = function(Value) FlagData.Delay = Value end
-})
-
-Tabs.FlagFunc:AddButton({
-    Title = "Apply & Lock",
-    Callback = function()
-        pcall(function()
-            settings().Network.IncomingReplicationLag = tonumber(FlagData.Delay) / 1000
-            Fluent:Notify({Title = "System", Content = "Applied", Duration = 2})
-        end)
-    end
-})
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if ReachConfig.Enabled then
-        pcall(function()
-            local ball = workspace.TPSSystem.TPS
-            local root = game.Players.LocalPlayer.Character.HumanoidRootPart
-            if (root.Position - ball.Position).Magnitude <= (ReachConfig.Size * 1.5) then
-                firetouchinterest(root, ball, 0)
-                firetouchinterest(root, ball, 1)
-            end
-        end)
-    end
+_call17:Button('Anticheat Bypasser', function()
+    loadstring(game:HttpGet('https://freenote.biz/raw/vyzuuBLBkX'))()
+    _11:Notification('Notification', 'Anticheat Bypasser activated!', 'Okay!')
 end)
+_call17:Button('Purple Sky', function()
+    local _call31 = Instance.new('Sky')
 
-Window:SelectTab(1)
+    _call31.Parent = game.Lighting
+    _call31.SkyboxBk = 'http://www.roblox.com/asset/?id=159454299'
+    _call31.SkyboxDn = 'http://www.roblox.com/asset/?id=159454296'
+    _call31.SkyboxFt = 'http://www.roblox.com/asset/?id=159454293'
+    _call31.SkyboxLf = 'http://www.roblox.com/asset/?id=159454286'
+    _call31.SkyboxRt = 'http://www.roblox.com/asset/?id=159454300'
+    _call31.SkyboxUp = 'http://www.roblox.com/asset/?id=159454288'
+    _call31.StarCount = 5000
+
+    _11:Notification('Notification', 'Purple Sky applied!', 'Okay!')
+end)
+_call17:Button('Night Sky', function()
+    genv.farmer = true
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting39 = game.Lighting
+
+    _gameLighting39.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting41 = game.Lighting
+
+    _gameLighting41.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting43 = game.Lighting
+
+    _gameLighting43.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting45 = game.Lighting
+
+    _gameLighting45.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting47 = game.Lighting
+
+    _gameLighting47.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting49 = game.Lighting
+
+    _gameLighting49.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting51 = game.Lighting
+
+    _gameLighting51.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting53 = game.Lighting
+
+    _gameLighting53.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting55 = game.Lighting
+
+    _gameLighting55.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting57 = game.Lighting
+
+    _gameLighting57.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting59 = game.Lighting
+
+    _gameLighting59.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting61 = game.Lighting
+
+    _gameLighting61.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting63 = game.Lighting
+
+    _gameLighting63.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting65 = game.Lighting
+
+    _gameLighting65.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting67 = game.Lighting
+
+    _gameLighting67.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting69 = game.Lighting
+
+    _gameLighting69.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting71 = game.Lighting
+
+    _gameLighting71.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting73 = game.Lighting
+
+    _gameLighting73.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting75 = game.Lighting
+
+    _gameLighting75.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting77 = game.Lighting
+
+    _gameLighting77.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting79 = game.Lighting
+
+    _gameLighting79.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting81 = game.Lighting
+
+    _gameLighting81.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting83 = game.Lighting
+
+    _gameLighting83.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting85 = game.Lighting
+
+    _gameLighting85.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting87 = game.Lighting
+
+    _gameLighting87.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting89 = game.Lighting
+
+    _gameLighting89.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting91 = game.Lighting
+
+    _gameLighting91.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting93 = game.Lighting
+
+    _gameLighting93.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting95 = game.Lighting
+
+    _gameLighting95.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting97 = game.Lighting
+
+    _gameLighting97.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting99 = game.Lighting
+
+    _gameLighting99.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting101 = game.Lighting
+
+    _gameLighting101.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting103 = game.Lighting
+
+    _gameLighting103.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting105 = game.Lighting
+
+    _gameLighting105.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting107 = game.Lighting
+
+    _gameLighting107.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting109 = game.Lighting
+
+    _gameLighting109.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting111 = game.Lighting
+
+    _gameLighting111.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting113 = game.Lighting
+
+    _gameLighting113.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting115 = game.Lighting
+
+    _gameLighting115.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting117 = game.Lighting
+
+    _gameLighting117.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting119 = game.Lighting
+
+    _gameLighting119.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting121 = game.Lighting
+
+    _gameLighting121.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting123 = game.Lighting
+
+    _gameLighting123.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting125 = game.Lighting
+
+    _gameLighting125.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting127 = game.Lighting
+
+    _gameLighting127.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting129 = game.Lighting
+
+    _gameLighting129.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting131 = game.Lighting
+
+    _gameLighting131.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting133 = game.Lighting
+
+    _gameLighting133.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting135 = game.Lighting
+
+    _gameLighting135.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting137 = game.Lighting
+
+    _gameLighting137.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting139 = game.Lighting
+
+    _gameLighting139.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting141 = game.Lighting
+
+    _gameLighting141.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting143 = game.Lighting
+
+    _gameLighting143.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting145 = game.Lighting
+
+    _gameLighting145.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting147 = game.Lighting
+
+    _gameLighting147.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting149 = game.Lighting
+
+    _gameLighting149.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting151 = game.Lighting
+
+    _gameLighting151.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting153 = game.Lighting
+
+    _gameLighting153.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting155 = game.Lighting
+
+    _gameLighting155.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting157 = game.Lighting
+
+    _gameLighting157.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting159 = game.Lighting
+
+    _gameLighting159.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting161 = game.Lighting
+
+    _gameLighting161.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting163 = game.Lighting
+
+    _gameLighting163.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting165 = game.Lighting
+
+    _gameLighting165.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting167 = game.Lighting
+
+    _gameLighting167.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting169 = game.Lighting
+
+    _gameLighting169.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting171 = game.Lighting
+
+    _gameLighting171.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting173 = game.Lighting
+
+    _gameLighting173.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting175 = game.Lighting
+
+    _gameLighting175.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting177 = game.Lighting
+
+    _gameLighting177.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting179 = game.Lighting
+
+    _gameLighting179.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting181 = game.Lighting
+
+    _gameLighting181.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting183 = game.Lighting
+
+    _gameLighting183.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting185 = game.Lighting
+
+    _gameLighting185.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting187 = game.Lighting
+
+    _gameLighting187.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting189 = game.Lighting
+
+    _gameLighting189.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting191 = game.Lighting
+
+    _gameLighting191.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting193 = game.Lighting
+
+    _gameLighting193.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting195 = game.Lighting
+
+    _gameLighting195.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting197 = game.Lighting
+
+    _gameLighting197.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting199 = game.Lighting
+
+    _gameLighting199.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting201 = game.Lighting
+
+    _gameLighting201.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting203 = game.Lighting
+
+    _gameLighting203.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting205 = game.Lighting
+
+    _gameLighting205.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting207 = game.Lighting
+
+    _gameLighting207.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting209 = game.Lighting
+
+    _gameLighting209.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting211 = game.Lighting
+
+    _gameLighting211.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting213 = game.Lighting
+
+    _gameLighting213.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting215 = game.Lighting
+
+    _gameLighting215.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting217 = game.Lighting
+
+    _gameLighting217.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting219 = game.Lighting
+
+    _gameLighting219.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting221 = game.Lighting
+
+    _gameLighting221.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting223 = game.Lighting
+
+    _gameLighting223.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting225 = game.Lighting
+
+    _gameLighting225.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting227 = game.Lighting
+
+    _gameLighting227.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting229 = game.Lighting
+
+    _gameLighting229.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting231 = game.Lighting
+
+    _gameLighting231.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting233 = game.Lighting
+
+    _gameLighting233.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting235 = game.Lighting
+
+    _gameLighting235.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting237 = game.Lighting
+
+    _gameLighting237.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting239 = game.Lighting
+
+    _gameLighting239.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting241 = game.Lighting
+
+    _gameLighting241.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting243 = game.Lighting
+
+    _gameLighting243.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting245 = game.Lighting
+
+    _gameLighting245.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting247 = game.Lighting
+
+    _gameLighting247.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting249 = game.Lighting
+
+    _gameLighting249.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting251 = game.Lighting
+
+    _gameLighting251.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting253 = game.Lighting
+
+    _gameLighting253.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting255 = game.Lighting
+
+    _gameLighting255.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting257 = game.Lighting
+
+    _gameLighting257.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting259 = game.Lighting
+
+    _gameLighting259.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting261 = game.Lighting
+
+    _gameLighting261.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting263 = game.Lighting
+
+    _gameLighting263.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting265 = game.Lighting
+
+    _gameLighting265.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting267 = game.Lighting
+
+    _gameLighting267.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting269 = game.Lighting
+
+    _gameLighting269.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting271 = game.Lighting
+
+    _gameLighting271.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting273 = game.Lighting
+
+    _gameLighting273.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting275 = game.Lighting
+
+    _gameLighting275.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting277 = game.Lighting
+
+    _gameLighting277.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting279 = game.Lighting
+
+    _gameLighting279.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting281 = game.Lighting
+
+    _gameLighting281.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting283 = game.Lighting
+
+    _gameLighting283.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting285 = game.Lighting
+
+    _gameLighting285.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting287 = game.Lighting
+
+    _gameLighting287.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting289 = game.Lighting
+
+    _gameLighting289.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting291 = game.Lighting
+
+    _gameLighting291.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting293 = game.Lighting
+
+    _gameLighting293.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting295 = game.Lighting
+
+    _gameLighting295.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting297 = game.Lighting
+
+    _gameLighting297.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting299 = game.Lighting
+
+    _gameLighting299.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting301 = game.Lighting
+
+    _gameLighting301.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting303 = game.Lighting
+
+    _gameLighting303.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting305 = game.Lighting
+
+    _gameLighting305.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting307 = game.Lighting
+
+    _gameLighting307.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting309 = game.Lighting
+
+    _gameLighting309.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting311 = game.Lighting
+
+    _gameLighting311.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting313 = game.Lighting
+
+    _gameLighting313.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting315 = game.Lighting
+
+    _gameLighting315.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting317 = game.Lighting
+
+    _gameLighting317.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting319 = game.Lighting
+
+    _gameLighting319.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting321 = game.Lighting
+
+    _gameLighting321.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting323 = game.Lighting
+
+    _gameLighting323.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting325 = game.Lighting
+
+    _gameLighting325.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting327 = game.Lighting
+
+    _gameLighting327.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting329 = game.Lighting
+
+    _gameLighting329.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting331 = game.Lighting
+
+    _gameLighting331.TimeOfDay = '00:00:00'
+
+    wait()
+
+    local _ = genv.farmer
+    local _gameLighting333 = game.Lighting
+
+    _gameLighting333.TimeOfDay = '00:00:00'
+
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('Reach GUI', function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/cnd00idjehdil1dhw8w9wowjeie9r00ro9djfjx/xiodidhd9dodjdifijdidodo/main/Rh'))()
+    _11:Notification('Notification', 'Reach GUI activated!', 'Okay!')
+end)
+_call17:Button('React GUI', function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/cnd00idjehdil1dhw8w9wowjeie9r00ro9djfjx/xiodidhd9dodjdifijdidodo/main/Rt'))()
+    _11:Notification('Notification', 'React GUI activated!', 'Okay!')
+end)
+_call17:Button('Cracks GUI', function()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('Striker GUI', function()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('GK GUI', function()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('Balls mod GUI', function()
+    game:HttpGet('https://raw.githubusercontent.com/cnd00idjehdil1dhw8w9wowjeie9r00ro9djfjx/xiodidhd9dodjdifijdidodo/main/BAII')
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('SuperKicks GUI', function()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('Ping & Level Changer GUI', function()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('LocalPlayer GUI', function()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('Miscellaneous GUI', function()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('Kill GUI', function()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
+_call17:Button('Powers GUI', function()
+    error('internal 557: <25ms: infinitelooperror>')
+end)
