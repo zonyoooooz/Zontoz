@@ -1,83 +1,57 @@
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-
 local Window = Fluent:CreateWindow({
-    Title = "ZERO | TPS STREET SOCCER",
+    Title = "TPS: Street Soccer 🏆",
     SubTitle = "By zon",
-    TabWidth = 160, 
+    TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
-    Acrylic = false, 
+    Acrylic = false,
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.LeftControl
 })
 
 local Tabs = {
-    Home = Window:AddTab({ Title = "Home", Icon = "home" }),
     Reach = Window:AddTab({ Title = "Reach", Icon = "mouse-pointer" }),
     FlagFunc = Window:AddTab({ Title = "Flag Func", Icon = "code" })
 }
 
--- [ Reach Section ]
-local ReachMethod1 = Tabs.Reach:AddSection("Reach [Method 1]")
-
-getgenv().ReachConfig = {
-    Enabled = false,
-    Size = 4,
-    Shape = "Box",
-    X = 4, Y = 4, Z = 4
-}
+local ReachConfig = { Enabled = false, Size = 4 }
 
 Tabs.Reach:AddToggle("ReachToggle", {
-    Title = "Enable / Disable Reach",
+    Title = "Enable Reach",
     Default = false,
-    Callback = function(Value) getgenv().ReachConfig.Enabled = Value end
+    Callback = function(Value) ReachConfig.Enabled = Value end
 })
 
-Tabs.Reach:AddInput("ReachSize", {
+Tabs.Reach:AddSlider("ReachSlider", {
     Title = "Reach Size",
+    Min = 1, Max = 50, Default = 4,
+    Rounding = 1,
+    Callback = function(Value) ReachConfig.Size = Value end
+})
+
+local FlagData = { Delay = "4" }
+
+Tabs.FlagFunc:AddInput("TargetDelay", {
+    Title = "TargetTimeDelay",
     Default = "4",
-    Callback = function(Value) getgenv().ReachConfig.Size = tonumber(Value) or 4 end
+    Callback = function(Value) FlagData.Delay = Value end
 })
-
-local ReachMethod2 = Tabs.Reach:AddSection("Reach [Method 2]")
-
-Tabs.Reach:AddDropdown("SelectShape", {
-    Title = "Select Shape",
-    Values = {"Box", "Sphere", "Cylinder"},
-    Default = "Box",
-    Callback = function(Value) getgenv().ReachConfig.Shape = Value end
-})
-
-Tabs.Reach:AddSlider("ReachX", { Title = "Reach X", Min = 1, Max = 50, Default = 4, Rounding = 1, Callback = function(v) getgenv().ReachConfig.X = v end })
-Tabs.Reach:AddSlider("ReachY", { Title = "Reach Y", Min = 1, Max = 50, Default = 4, Rounding = 1, Callback = function(v) getgenv().ReachConfig.Y = v end })
-Tabs.Reach:AddSlider("ReachZ", { Title = "Reach Z", Min = 1, Max = 50, Default = 4, Rounding = 1, Callback = function(v) getgenv().ReachConfig.Z = v end })
-
--- [ Flag Func Section ]
-local FlagOverride = Tabs.FlagFunc:AddSection("Flag Override")
-
-local FlagData = { Delay = "4", Interp = "60", Phys = "38720" }
-
-Tabs.FlagFunc:AddInput("TargetDelay", { Title = "TargetTimeDelay", Default = "4", Callback = function(v) FlagData.Delay = v end })
-Tabs.FlagFunc:AddInput("Interpolation", { Title = "Interpolation", Default = "60", Callback = function(v) FlagData.Interp = v end })
-Tabs.FlagFunc:AddInput("PhysicsRate", { Title = "PhysicsSenderRate", Default = "38720", Callback = function(v) FlagData.Phys = v end })
 
 Tabs.FlagFunc:AddButton({
     Title = "Apply & Lock",
     Callback = function()
         pcall(function()
             settings().Network.IncomingReplicationLag = tonumber(FlagData.Delay) / 1000
-            Fluent:Notify({Title = "Zero Engine", Content = "Flags Applied Successfully", Duration = 3})
+            Fluent:Notify({Title = "System", Content = "Applied", Duration = 2})
         end)
     end
 })
 
--- [ Core Execution ]
 game:GetService("RunService").Heartbeat:Connect(function()
-    if getgenv().ReachConfig.Enabled then
+    if ReachConfig.Enabled then
         pcall(function()
             local ball = workspace.TPSSystem.TPS
             local root = game.Players.LocalPlayer.Character.HumanoidRootPart
-            local mag = (root.Position - ball.Position).Magnitude
-            if mag <= (getgenv().ReachConfig.Size * 1.5) then
+            if (root.Position - ball.Position).Magnitude <= (ReachConfig.Size * 1.5) then
                 firetouchinterest(root, ball, 0)
                 firetouchinterest(root, ball, 1)
             end
