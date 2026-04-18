@@ -1,0 +1,100 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+
+local Window = Fluent:CreateWindow({
+    Title = "ZERO | TPS ULTIMATE",
+    SubTitle = "By zon",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = false,
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl
+})
+
+local Tabs = {
+    Main = Window:AddTab({ Title = "Reach", Icon = "zap" }),
+    Abilities = Window:AddTab({ Title = "Abilities", Icon = "star" })
+}
+
+getgenv().ZonConfig = {
+    Enabled = false,
+    Size = 10,
+    FastCooldown = false,
+    MoreCurve = false
+}
+
+local ReachSection = Tabs.Main:AddSection("Reach Settings")
+
+Tabs.Main:AddToggle("ReachToggle", {
+    Title = "Enable Reach",
+    Default = false,
+    Callback = function(v) getgenv().ZonConfig.Enabled = v end
+})
+
+Tabs.Main:AddSlider("ReachSlider", {
+    Title = "Reach Size",
+    Min = 1, Max = 19, Default = 10,
+    Rounding = 1,
+    Callback = function(v) getgenv().ZonConfig.Size = v end
+})
+
+local AbilitySection = Tabs.Abilities:AddSection("Gamepass Emulation")
+
+Tabs.Abilities:AddToggle("CooldownToggle", {
+    Title = "Faster Cooldown (Instant)",
+    Default = false,
+    Callback = function(v) getgenv().ZonConfig.FastCooldown = v end
+})
+
+Tabs.Abilities:AddToggle("CurveToggle", {
+    Title = "Maximum Curve Override",
+    Default = false,
+    Callback = function(v) getgenv().ZonConfig.MoreCurve = v end
+})
+
+local lastPulse = 0
+game:GetService("RunService").Heartbeat:Connect(function()
+    pcall(function()
+        local lp = game.Players.LocalPlayer
+        local char = lp.Character
+        
+        if getgenv().ZonConfig.Enabled and char then
+            local ball = workspace.TPSSystem.TPS
+            local root = char.HumanoidRootPart
+            if (root.Position - ball.Position).Magnitude <= getgenv().ZonConfig.Size then
+                local now = tick()
+                if now - lastPulse >= 0.05 then
+                    firetouchinterest(root, ball, 0)
+                    firetouchinterest(root, ball, 1)
+                    lastPulse = now
+                end
+            end
+        end
+
+        if char then
+            local folder = char:FindFirstChild("Values") or char:FindFirstChild("Configuration")
+            if folder then
+                if getgenv().ZonConfig.FastCooldown then
+                    local cd = folder:FindFirstChild("Cooldown") or folder:FindFirstChild("CD")
+                    if cd then cd.Value = 0 end
+                end
+                
+                if getgenv().ZonConfig.MoreCurve then
+                    local cv = folder:FindFirstChild("Curve") or folder:FindFirstChild("Power")
+                    if cv then cv.Value = 50 end
+                end
+            end
+            
+            for _, tool in pairs(lp.Backpack:GetChildren()) do
+                if tool:IsA("Tool") then
+                    local curveVal = tool:FindFirstChild("CanCurve") or tool:FindFirstChild("Curve")
+                    if curveVal and getgenv().ZonConfig.MoreCurve then
+                        if curveVal:IsA("BoolValue") then curveVal.Value = true
+                        else curveVal.Value = 50 end
+                    end
+                end
+            end
+        end
+    end)
+end)
+
+Window:SelectTab(1)
