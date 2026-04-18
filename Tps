@@ -12,29 +12,14 @@ local Window = Fluent:CreateWindow({
 
 local Tabs = {
     Main = Window:AddTab({ Title = "Reach", Icon = "zap" }),
-    Abilities = Window:AddTab({ Title = "Abilities", Icon = "star" })
+    Exploits = Window:AddTab({ Title = "Exploits", Icon = "ghost" })
 }
 
 getgenv().ZonConfig = {
     Enabled = false,
     Size = 10,
-    FastCooldown = false,
-    MoreCurve = false
+    AntiGK = false
 }
-
-local oldIndex
-oldIndex = hookmetamethod(game, "__index", function(self, key)
-    if not checkcaller() then
-        local name = self.Name
-        if getgenv().ZonConfig.FastCooldown and (name == "FasterCooldown" or name == "FastCooldown") and key == "Value" then
-            return true
-        end
-        if getgenv().ZonConfig.MoreCurve and (name == "MoreCurve" or name == "DoubleCurve") and key == "Value" then
-            return true
-        end
-    end
-    return oldIndex(self, key)
-end)
 
 local ReachSection = Tabs.Main:AddSection("Reach Configuration")
 
@@ -65,18 +50,12 @@ Tabs.Main:AddSlider("ReachSlider", {
     Callback = function(v) getgenv().ZonConfig.Size = v end 
 })
 
-local AbilitySection = Tabs.Abilities:AddSection("Gamepass Emulation")
+local ExploitSection = Tabs.Exploits:AddSection("Keeper Bypass")
 
-Tabs.Abilities:AddToggle("CooldownToggle", { 
-    Title = "Faster Cooldown (Inject)", 
+Tabs.Exploits:AddToggle("AntiGKToggle", { 
+    Title = "Anti-GK (Ghost Shot)", 
     Default = false, 
-    Callback = function(v) getgenv().ZonConfig.FastCooldown = v end 
-})
-
-Tabs.Abilities:AddToggle("CurveToggle", { 
-    Title = "Maximum Curve (Inject)", 
-    Default = false, 
-    Callback = function(v) getgenv().ZonConfig.MoreCurve = v end 
+    Callback = function(v) getgenv().ZonConfig.AntiGK = v end 
 })
 
 local lastPulse = 0
@@ -84,11 +63,11 @@ game:GetService("RunService").Heartbeat:Connect(function()
     pcall(function()
         local lp = game.Players.LocalPlayer
         local char = lp.Character
+        local ball = workspace.TPSSystem.TPS
         
-        if getgenv().ZonConfig.Enabled and char then
-            local ball = workspace.TPSSystem.TPS
+        if getgenv().ZonConfig.Enabled and char and ball then
             local root = char:FindFirstChild("HumanoidRootPart")
-            if root and ball then
+            if root then
                 local dist = (root.Position - ball.Position).Magnitude
                 if dist <= getgenv().ZonConfig.Size then
                     local now = tick()
@@ -101,16 +80,16 @@ game:GetService("RunService").Heartbeat:Connect(function()
             end
         end
 
-        if char then
-            local values = char:FindFirstChild("Values")
-            if values then
-                if getgenv().ZonConfig.FastCooldown then
-                    local cd = values:FindFirstChild("Cooldown")
-                    if cd then cd.Value = 0 end
-                end
-                if getgenv().ZonConfig.MoreCurve then
-                    local curve = values:FindFirstChild("CanCurve")
-                    if curve then curve.Value = true end
+        if getgenv().ZonConfig.AntiGK and ball then
+            for _, player in pairs(game.Players:GetPlayers()) do
+                if player ~= lp and player.Team ~= lp.Team then
+                    local targetChar = player.Character
+                    if targetChar and targetChar:FindFirstChild("HumanoidRootPart") then
+                        local dist = (ball.Position - targetChar.HumanoidRootPart.Position).Magnitude
+                        if dist < 8 then
+                            ball.Velocity = ball.Velocity + (ball.Velocity.Unit * 15)
+                        end
+                    end
                 end
             end
         end
