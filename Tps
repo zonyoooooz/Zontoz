@@ -25,10 +25,11 @@ getgenv().ZonConfig = {
 local oldIndex
 oldIndex = hookmetamethod(game, "__index", function(self, key)
     if not checkcaller() then
-        if getgenv().ZonConfig.FastCooldown and (self.Name == "FasterCooldown" or self.Name == "FastCooldown") and key == "Value" then
+        local name = self.Name
+        if getgenv().ZonConfig.FastCooldown and (name == "FasterCooldown" or name == "FastCooldown") and key == "Value" then
             return true
         end
-        if getgenv().ZonConfig.MoreCurve and (self.Name == "MoreCurve" or self.Name == "DoubleCurve") and key == "Value" then
+        if getgenv().ZonConfig.MoreCurve and (name == "MoreCurve" or name == "DoubleCurve") and key == "Value" then
             return true
         end
     end
@@ -86,24 +87,31 @@ game:GetService("RunService").Heartbeat:Connect(function()
         
         if getgenv().ZonConfig.Enabled and char then
             local ball = workspace.TPSSystem.TPS
-            local root = char.HumanoidRootPart
-            if (root.Position - ball.Position).Magnitude <= getgenv().ZonConfig.Size then
-                local now = tick()
-                if now - lastPulse >= 0.05 then
-                    firetouchinterest(root, ball, 0)
-                    firetouchinterest(root, ball, 1)
-                    lastPulse = now
+            local root = char:FindFirstChild("HumanoidRootPart")
+            if root and ball then
+                local dist = (root.Position - ball.Position).Magnitude
+                if dist <= getgenv().ZonConfig.Size then
+                    local now = tick()
+                    if now - lastPulse >= 0.05 then
+                        firetouchinterest(root, ball, 0)
+                        firetouchinterest(root, ball, 1)
+                        lastPulse = now
+                    end
                 end
             end
         end
 
-        if char and char:FindFirstChild("Values") then
-            local v = char.Values
-            if getgenv().ZonConfig.FastCooldown and v:FindFirstChild("Cooldown") then
-                v.Cooldown.Value = 0
-            end
-            if getgenv().ZonConfig.MoreCurve and v:FindFirstChild("CanCurve") then
-                v.CanCurve.Value = true
+        if char then
+            local values = char:FindFirstChild("Values")
+            if values then
+                if getgenv().ZonConfig.FastCooldown then
+                    local cd = values:FindFirstChild("Cooldown")
+                    if cd then cd.Value = 0 end
+                end
+                if getgenv().ZonConfig.MoreCurve then
+                    local curve = values:FindFirstChild("CanCurve")
+                    if curve then curve.Value = true end
+                end
             end
         end
     end)
