@@ -22,33 +22,60 @@ getgenv().ZonConfig = {
     MoreCurve = false
 }
 
-local ReachSection = Tabs.Main:AddSection("Reach Settings")
+local oldIndex
+oldIndex = hookmetamethod(game, "__index", function(self, key)
+    if not checkcaller() then
+        if getgenv().ZonConfig.FastCooldown and (self.Name == "FasterCooldown" or self.Name == "FastCooldown") and key == "Value" then
+            return true
+        end
+        if getgenv().ZonConfig.MoreCurve and (self.Name == "MoreCurve" or self.Name == "DoubleCurve") and key == "Value" then
+            return true
+        end
+    end
+    return oldIndex(self, key)
+end)
 
-Tabs.Main:AddToggle("ReachToggle", {
-    Title = "Enable Reach",
-    Default = false,
-    Callback = function(v) getgenv().ZonConfig.Enabled = v end
+local ReachSection = Tabs.Main:AddSection("Reach Configuration")
+
+Tabs.Main:AddToggle("ReachToggle", { 
+    Title = "Enable Reach", 
+    Default = false, 
+    Callback = function(v) getgenv().ZonConfig.Enabled = v end 
 })
 
-Tabs.Main:AddSlider("ReachSlider", {
-    Title = "Reach Size",
-    Min = 1, Max = 19, Default = 10,
-    Rounding = 1,
-    Callback = function(v) getgenv().ZonConfig.Size = v end
+Tabs.Main:AddInput("ReachInput", {
+    Title = "Reach Size (Type Number)",
+    Default = "10",
+    Numeric = true,
+    Finished = true,
+    Callback = function(Value)
+        local num = tonumber(Value)
+        if num then
+            if num > 19 then num = 19 end
+            getgenv().ZonConfig.Size = num
+        end
+    end
+})
+
+Tabs.Main:AddSlider("ReachSlider", { 
+    Title = "Reach Slider", 
+    Min = 1, Max = 19, Default = 10, 
+    Rounding = 1, 
+    Callback = function(v) getgenv().ZonConfig.Size = v end 
 })
 
 local AbilitySection = Tabs.Abilities:AddSection("Gamepass Emulation")
 
-Tabs.Abilities:AddToggle("CooldownToggle", {
-    Title = "Faster Cooldown (Instant)",
-    Default = false,
-    Callback = function(v) getgenv().ZonConfig.FastCooldown = v end
+Tabs.Abilities:AddToggle("CooldownToggle", { 
+    Title = "Faster Cooldown (Inject)", 
+    Default = false, 
+    Callback = function(v) getgenv().ZonConfig.FastCooldown = v end 
 })
 
-Tabs.Abilities:AddToggle("CurveToggle", {
-    Title = "Maximum Curve Override",
-    Default = false,
-    Callback = function(v) getgenv().ZonConfig.MoreCurve = v end
+Tabs.Abilities:AddToggle("CurveToggle", { 
+    Title = "Maximum Curve (Inject)", 
+    Default = false, 
+    Callback = function(v) getgenv().ZonConfig.MoreCurve = v end 
 })
 
 local lastPulse = 0
@@ -70,28 +97,13 @@ game:GetService("RunService").Heartbeat:Connect(function()
             end
         end
 
-        if char then
-            local folder = char:FindFirstChild("Values") or char:FindFirstChild("Configuration")
-            if folder then
-                if getgenv().ZonConfig.FastCooldown then
-                    local cd = folder:FindFirstChild("Cooldown") or folder:FindFirstChild("CD")
-                    if cd then cd.Value = 0 end
-                end
-                
-                if getgenv().ZonConfig.MoreCurve then
-                    local cv = folder:FindFirstChild("Curve") or folder:FindFirstChild("Power")
-                    if cv then cv.Value = 50 end
-                end
+        if char and char:FindFirstChild("Values") then
+            local v = char.Values
+            if getgenv().ZonConfig.FastCooldown and v:FindFirstChild("Cooldown") then
+                v.Cooldown.Value = 0
             end
-            
-            for _, tool in pairs(lp.Backpack:GetChildren()) do
-                if tool:IsA("Tool") then
-                    local curveVal = tool:FindFirstChild("CanCurve") or tool:FindFirstChild("Curve")
-                    if curveVal and getgenv().ZonConfig.MoreCurve then
-                        if curveVal:IsA("BoolValue") then curveVal.Value = true
-                        else curveVal.Value = 50 end
-                    end
-                end
+            if getgenv().ZonConfig.MoreCurve and v:FindFirstChild("CanCurve") then
+                v.CanCurve.Value = true
             end
         end
     end)
