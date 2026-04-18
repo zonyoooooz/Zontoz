@@ -1,118 +1,88 @@
-‏local Players = game:GetService("Players")
-‏local RunService = game:GetService("RunService")
-‏local localPlayer = Players.LocalPlayer
-‏local camera = workspace.CurrentCamera
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 
-‏-- ESP Folder
-‏local espFolder = Instance.new("Folder", game.CoreGui)
-‏espFolder.Name = "ESP_Labels"
+local Window = Fluent:CreateWindow({
+    Title = "ZERO | TPS STREET SOCCER",
+    SubTitle = "By zon",
+    TabWidth = 160, 
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = false, 
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl
+})
 
-‏local espEnabled = false
-‏local aimbotEnabled = false
-‏local connections = {}
-‏local function createESP(player)
-‏	if player == localPlayer then return end
-‏	if espFolder:FindFirstChild(player.Name) then return end
+local Tabs = {
+    Home = Window:AddTab({ Title = "Home", Icon = "home" }),
+    Reach = Window:AddTab({ Title = "Reach", Icon = "mouse-pointer" }),
+    FlagFunc = Window:AddTab({ Title = "Flag Func", Icon = "code" })
+}
 
-‏	local billboard = Instance.new("BillboardGui")
-‏	billboard.Name = player.Name
-‏	billboard.Adornee = nil
-‏	billboard.Size = UDim2.new(0, 100, 0, 40)
-‏	billboard.StudsOffset = Vector3.new(0, 3, 0)
-‏	billboard.AlwaysOnTop = true
-‏	billboard.Parent = espFolder
+-- [ Reach Section ]
+local ReachMethod1 = Tabs.Reach:AddSection("Reach [Method 1]")
 
-‏	local label = Instance.new("TextLabel")
-‏	label.Size = UDim2.new(1, 0, 1, 0)
-‏	label.BackgroundTransparency = 1
-‏	label.TextStrokeTransparency = 0.5
-‏	label.Font = Enum.Font.SourceSansBold
-‏	label.TextSize = 14
-‏	label.Text = player.Name
-‏	label.Parent = billboard
+getgenv().ReachConfig = {
+    Enabled = false,
+    Size = 4,
+    Shape = "Box",
+    X = 4, Y = 4, Z = 4
+}
 
-‏	local conn = RunService.RenderStepped:Connect(function()
-‏		if player.Character and player.Character:FindFirstChild("Head") then
-‏			billboard.Adornee = player.Character.Head
-‏			billboard.Enabled = espEnabled
+Tabs.Reach:AddToggle("ReachToggle", {
+    Title = "Enable / Disable Reach",
+    Default = false,
+    Callback = function(Value) getgenv().ReachConfig.Enabled = Value end
+})
 
-‏			if player.Team == localPlayer.Team then
-‏				label.TextColor3 = Color3.fromRGB(0, 255, 0)
-‏			else
-‏				label.TextColor3 = Color3.fromRGB(255, 0, 0)
-‏			end
-‏		else
-‏			billboard.Enabled = false
-‏		end
-‏	end)
+Tabs.Reach:AddInput("ReachSize", {
+    Title = "Reach Size",
+    Default = "4",
+    Callback = function(Value) getgenv().ReachConfig.Size = tonumber(Value) or 4 end
+})
 
-‏	table.insert(connections, conn)
-‏end
+local ReachMethod2 = Tabs.Reach:AddSection("Reach [Method 2]")
 
-‏-- Create ESP for all players
-‏for _, player in ipairs(Players:GetPlayers()) do
-‏	createESP(player)
-‏end
+Tabs.Reach:AddDropdown("SelectShape", {
+    Title = "Select Shape",
+    Values = {"Box", "Sphere", "Cylinder"},
+    Default = "Box",
+    Callback = function(Value) getgenv().ReachConfig.Shape = Value end
+})
 
-‏Players.PlayerAdded:Connect(function(player)
-‏	createESP(player)
-‏end)
-‏local screenGui = Instance.new("ScreenGui", localPlayer:WaitForChild("PlayerGui"))
-‏screenGui.Name = "ESP_Aimbot_GUI"
-‏local espButton = Instance.new("TextButton")
-‏espButton.Size = UDim2.new(0, 120, 0, 40)
-‏espButton.Position = UDim2.new(0, 20, 0, 20)
-‏espButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-‏espButton.TextColor3 = Color3.new(1, 1, 1)
-‏espButton.Font = Enum.Font.SourceSansBold
-‏espButton.TextSize = 18
-‏espButton.Text = "ESP: OFF"
-‏espButton.Parent = screenGui
+Tabs.Reach:AddSlider("ReachX", { Title = "Reach X", Min = 1, Max = 50, Default = 4, Rounding = 1, Callback = function(v) getgenv().ReachConfig.X = v end })
+Tabs.Reach:AddSlider("ReachY", { Title = "Reach Y", Min = 1, Max = 50, Default = 4, Rounding = 1, Callback = function(v) getgenv().ReachConfig.Y = v end })
+Tabs.Reach:AddSlider("ReachZ", { Title = "Reach Z", Min = 1, Max = 50, Default = 4, Rounding = 1, Callback = function(v) getgenv().ReachConfig.Z = v end })
 
-‏espButton.MouseButton1Click:Connect(function()
-‏	espEnabled = not espEnabled
-‏	espButton.Text = espEnabled and "ESP: ON" or "ESP: OFF"
-‏end)
-‏local aimbotButton = Instance.new("TextButton")
-‏aimbotButton.Size = UDim2.new(0, 120, 0, 40)
-‏aimbotButton.Position = UDim2.new(0, 20, 0, 70)
-‏aimbotButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-‏aimbotButton.TextColor3 = Color3.new(1, 1, 1)
-‏aimbotButton.Font = Enum.Font.SourceSansBold
-‏aimbotButton.TextSize = 18
-‏aimbotButton.Text = "Aimbot: OFF"
-‏aimbotButton.Parent = screenGui
+-- [ Flag Func Section ]
+local FlagOverride = Tabs.FlagFunc:AddSection("Flag Override")
 
-‏aimbotButton.MouseButton1Click:Connect(function()
-‏	aimbotEnabled = not aimbotEnabled
-‏	aimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
-‏end)
-‏local function getClosestEnemy()
-‏	local closestEnemy = nil
-‏	local shortestDistance = math.huge
+local FlagData = { Delay = "4", Interp = "60", Phys = "38720" }
 
-‏	local mouse = localPlayer:GetMouse()
-‏	for _, player in ipairs(Players:GetPlayers()) do
-‏		if player ~= localPlayer and player.Team ~= localPlayer.Team and player.Character and player.Character:FindFirstChild("Head") then
-‏			local head = player.Character.Head
-‏			local screenPos, onScreen = camera:WorldToViewportPoint(head.Position)
-‏			if onScreen then
-‏				local distance = (Vector2.new(mouse.X, mouse.Y) - Vector2.new(screenPos.X, screenPos.Y)).Magnitude
-‏				if distance < shortestDistance then
-‏					shortestDistance = distance
-‏					closestEnemy = player
-‏				end
-‏			end
-‏		end
-‏	end
+Tabs.FlagFunc:AddInput("TargetDelay", { Title = "TargetTimeDelay", Default = "4", Callback = function(v) FlagData.Delay = v end })
+Tabs.FlagFunc:AddInput("Interpolation", { Title = "Interpolation", Default = "60", Callback = function(v) FlagData.Interp = v end })
+Tabs.FlagFunc:AddInput("PhysicsRate", { Title = "PhysicsSenderRate", Default = "38720", Callback = function(v) FlagData.Phys = v end })
 
-‏	return closestEnemy
-‏end
-‏RunService.RenderStepped:Connect(function()
-‏	if aimbotEnabled then
-‏		local target = getClosestEnemy()
-‏		if target and target.Character and target.Character:FindFirstChild("Head") then
-‏			camera.CFrame = CFrame.new(camera.CFrame.Position, target.Character.Head.Position)
-‏		end
-‏	end
-‏end)
+Tabs.FlagFunc:AddButton({
+    Title = "Apply & Lock",
+    Callback = function()
+        pcall(function()
+            settings().Network.IncomingReplicationLag = tonumber(FlagData.Delay) / 1000
+            Fluent:Notify({Title = "Zero Engine", Content = "Flags Applied Successfully", Duration = 3})
+        end)
+    end
+})
+
+-- [ Core Execution ]
+game:GetService("RunService").Heartbeat:Connect(function()
+    if getgenv().ReachConfig.Enabled then
+        pcall(function()
+            local ball = workspace.TPSSystem.TPS
+            local root = game.Players.LocalPlayer.Character.HumanoidRootPart
+            local mag = (root.Position - ball.Position).Magnitude
+            if mag <= (getgenv().ReachConfig.Size * 1.5) then
+                firetouchinterest(root, ball, 0)
+                firetouchinterest(root, ball, 1)
+            end
+        end)
+    end
+end)
+
+Window:SelectTab(1)
